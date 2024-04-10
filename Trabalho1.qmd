@@ -6,7 +6,7 @@ bibliography: Trabalho.bib
 link-citations: true
 ---
 
-##### Por: José Norambuena. 
+##### Por: José Norambuena.
 
 En Chile, históricamente ha existido una inequidad en cuanto al acceso a la educación, esto es visible desde un periodo que abarca la Independencia, llegando incluso al 2006, donde se difumina mínimamente la línea que podría hacer las veces de barrera [@nunezprietoEducacionChilenaRepublica2015]. Esta inequidad se expresa en cuanto al acceso a educación primaria en un primer momento, sector de la educación donde existen los colegios (y para efectos de esta investigación) que clasificaremos como privados y públicos, siendo estos últimos los de más fácil acceso al no contar con una matrícula y suscripción mensual.
 
