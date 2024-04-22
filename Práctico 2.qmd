@@ -60,12 +60,20 @@ En este caso trabajaré con siete variables que me otorga la base de datos de la
 
 Estas variables me ayudarán a entender si realmente existe una brecha en cuanto al acceso a la educación superior y por supuesto generar la comparativa entre el nivel educativo, la inserción laboral y de la mano los ingresos.
 
+##### Obtener descriptivos
+
 ```{r}
+#| label: gr-1
+
+#| fig-cap: “Plots”
 stargazer(CASEN,type = "text")
 ```
 
+En esta acotada tabla podemos visualizar los casos que se encuentran en cada variable, podemos ver que como filtramos la base de datos para personas mayores de 18 años, y la variable gratuidad y crédito universitario responde netamente a estudiantes que optaron con alguno de estos beneficios en el año 2022.
+
 ```{r}
-#| label: tbl-2
-#| tbl-cap: “Descriptivos BBDD extendida”
+#| label: gr-2
+
+#| fig-cap: “Plots”
 view(dfSummary(CASEN, headings=FALSE))
 ```

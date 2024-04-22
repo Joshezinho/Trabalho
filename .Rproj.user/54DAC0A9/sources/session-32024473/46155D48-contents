@@ -173,3 +173,12 @@ view(dfSummary(CASEN, headings=FALSE))
 
 ## 5.3 Guardar base de datos en una ruta particular
 save(CASEN, file ="input/CASEN.rdata")
+
+class(CASEN$pueb_or)
+CASEN$pueb_or <- as.factor(CASEN$pueb_or)
+CASEN$educ <- as.factor(CASEN$educ)
+CASEN$est_educ_sup <- as.factor(CASEN$est_educ_sup)
+CASEN$gratuidad <- as.factor(CASEN$gratuidad)
+CASEN$cred_univ <- as.factor(CASEN$cred_univ)
+CASEN$trabajo <- as.factor(CASEN$trabajo)
+CASEN$ingresos <- as.factor(CASEN$ingresos)
