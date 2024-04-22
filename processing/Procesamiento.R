@@ -154,6 +154,14 @@ CASEN$trabajo <- set_labels(CASEN$trabajo,
                  labels = c("Sí" = 1,
                             "No" = 0))
 
+# Ingresos
+CASEN$ingresos <- recode(CASEN$ingresos, "0:469999=1; 470000:999999=2; 1000000:1999999=3;2000000:25000000=4")
+CASEN$ingresos <- set_labels(CASEN$ingresos,
+                  labels = c("Menos del sueldo mínimo" = 1,
+                             "Sueldo promedio" = 2,
+                             "Sueldo alto" = 3,
+                             "Sueldo muy alto" = 4))
+frq(CASEN$ingresos)
 #### 5. Generar base de datos procesada para el análisis ####
 ## 5.1 Reformatear objeto (CASEN) a BBDD
 CASEN <-as.data.frame(CASEN)

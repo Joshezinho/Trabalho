@@ -24,7 +24,7 @@ Por último, la hipótesis en cuanto al acceso a la educación superior y finalm
 
 Para efectos de esta investigación es que haré uso de la base de datos de la Encuesta de Caracterización Socioeconómica Nacional o CASEN del año 2022, de donde extraeré datos desde el sexo de las personas, pasando por el nivel educativo, la zona en la que vive, la ocupación y el ingreso de cada persona generando una perspectiva comparada.
 
-##### Cargar paquetes. 
+##### Cargar paquetes.
 
 Para efectos de lo descrito anteriormente, es menester poder visualizar las diversas formas de poder entender el fenómeno y en última instancia explicarlo. Si bien, cuando trabajamos con un script de R, lo primero que debemos hacer es contemplar los "paquetes" que debemos usar. Y para eso, usamos el siguiente código, que nos permite hacer de todo tipo de manipulación y análisis según lo fuesemos requiriendo.
 
@@ -61,7 +61,6 @@ En este caso trabajaré con siete variables que me otorga la base de datos de la
 Estas variables me ayudarán a entender si realmente existe una brecha en cuanto al acceso a la educación superior y por supuesto generar la comparativa entre el nivel educativo, la inserción laboral y de la mano los ingresos.
 
 ```{r}
-sjmisc::descr(CASEN,
-              show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
-  kable(.,"markdown")
+view(dfSummary(CASEN, headings=FALSE))
+
 ```
