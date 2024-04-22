@@ -402,12 +402,55 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(<span class="fu">dfSummary</span>(CASEN, <span class="at">headings=</span><span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">dfSummary</span>(CASEN, <span class="at">plain.ascii =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>### Data Frame Summary  
+#### CASEN  
+**Dimensions:** 158509 x 7  
+**Duplicates:** 158083  
+
+------------------------------------------------------------------------------------------------------
+No   Variable        Stats / Values   Freqs (% of Valid)   Graph                  Valid      Missing  
+---- --------------- ---------------- -------------------- ---------------------- ---------- ---------
+1    pueb_or\        1\. 0\           137785 (86.9%)\      IIIIIIIIIIIIIIIII \    158509\    0\       
+     [factor]        2\. 1            20724 (13.1%)        II                     (100.0%)   (0.0%)   
+
+2    educ\           1\. 0\           3035 ( 1.9%)\        \                      157721\    788\     
+     [factor]        2\. 1\           36862 (23.4%)\       IIII \                 (99.5%)    (0.5%)   
+                     3\. 2\           68204 (43.2%)\       IIIIIIII \                                 
+                     4\. 3\           47301 (30.0%)\       IIIII \                                    
+                     5\. 4            2319 ( 1.5%)                                                    
+
+3    est_educ_sup\   1\. 0\           121585 (76.7%)\      IIIIIIIIIIIIIII \      158509\    0\       
+     [factor]        2\. 1\           4555 ( 2.9%)\        \                      (100.0%)   (0.0%)   
+                     3\. 2\           10308 ( 6.5%)\       I \                                        
+                     4\. 3\           21526 (13.6%)\       II \                                       
+                     5\. 4            535 ( 0.3%)                                                     
+
+4    gratuidad\      1\. 0\           6691 (55.5%)\        IIIIIIIIIII \          12055\     146454\  
+     [factor]        2\. 1            5364 (44.5%)         IIIIIIII               (7.6%)     (92.4%)  
+
+5    cred_univ\      1\. 0\           4136 (60.2%)\        IIIIIIIIIIII \         6876\      151633\  
+     [factor]        2\. 1\           406 ( 5.9%)\         I \                    (4.3%)     (95.7%)  
+                     3\. 2\           1368 (19.9%)\        III \                                      
+                     4\. 3\           131 ( 1.9%)\         \                                          
+                     5\. 4            835 (12.1%)          II                                         
+
+6    trabajo\        1\. 0\           78305 (49.4%)\       IIIIIIIII \            158509\    0\       
+     [factor]        2\. 1            80204 (50.6%)        IIIIIIIIII             (100.0%)   (0.0%)   
+
+7    ingresos\       1\. 1\           28795 (48.3%)\       IIIIIIIII \            59644\     98865\   
+     [factor]        2\. 2\           21569 (36.2%)\       IIIIIII \              (37.6%)    (62.4%)  
+                     3\. 3\           6898 (11.6%)\        II \                                       
+                     4\. 4            2382 ( 4.0%)                                                    
+------------------------------------------------------------------------------------------------------</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(<span class="fu">dfSummary</span>(CASEN, <span class="at">headings=</span><span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Switching method to 'browser'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Output file written: C:\Users\Neo\AppData\Local\Temp\Rtmpchm1lE\file66ac716a222d.html</code></pre>
+<pre><code>Output file written: C:\Users\Neo\AppData\Local\Temp\RtmpExuB5D\file78984390908.html</code></pre>
 </div>
 </div>
 

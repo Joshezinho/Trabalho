@@ -87,5 +87,6 @@ sjmisc::descr(CASEN,
 ```
 
 ```{r}
+summarytools::dfSummary(CASEN, plain.ascii = FALSE)
 view(dfSummary(CASEN, headings=FALSE))
 ```
