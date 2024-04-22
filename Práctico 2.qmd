@@ -71,22 +71,13 @@ sjmisc::descr(CASEN,
   kable(.,"markdown")
 ```
 
-En esta acotada tabla podemos visualizar los casos que se encuentran en cada variable, podemos ver que como filtramos la base de datos para personas mayores de 18 años, y la variable gratuidad y crédito universitario responde netamente a estudiantes que optaron con alguno de estos beneficios en el año 2022.
+En esta acotada tabla podemos visualizar los casos que se encuentran en cada variable, la media, y la desviación estandar, es necesario especificar que la variable gratuidad y crédito universitario responde netamente a estudiantes que optaron con alguno de estos beneficios en el año 2022.
 
 ```{r}
 #| label: gr-2
 
 #| fig-cap: “Plots”
-sjmisc::descr(CASEN)
-```
-
-```{r}
-sjmisc::descr(CASEN,
-              show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
-  kable(.,"markdown")
-```
-
-```{r}
 summarytools::dfSummary(CASEN, plain.ascii = FALSE)
-view(dfSummary(CASEN, headings=FALSE))
 ```
+
+En esta segunda tabla, podemos ver más o menos la distribución de cada variable. En este caso ya podemos comenzar a analizar esta un poco más en profundidad. En un primer momento podemos visualizar la diferencia entre las personas pertenecientes a pueblos originarios y las que no. En cuanto a la educación, se puede ver en el gráfico una forma parecida a la de una curva normal, pero posteriormente ahondaré en ello. En cuanto a la gratuidad y los créditos, las personas que fueron (o pueden seguir siendo) estudiantes de educación superior en el año 2022, una proporción no menor representa aquellos estudiantes que estudian con gratuidad. Por último, respecto a los ingresos, la forma de la curva presenta asimetría, que se puede interpretar como que mayor cantidada de personas tienen en este caso un sueldo bajo en comparación con las personas que tienen sueldos muy abultados.

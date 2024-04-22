@@ -20,7 +20,7 @@ CASEN1 <- read_sav("input/CASEN.sav")
 
 # 2.3 Filtrar por edad (mayores de 18 años)
 CASEN <- CASEN1 %>% dplyr::filter(edad>=18)
-
+CASEN1$e8
 #### 3. Selección de variables ####
 # r3 --> pueblos originarios
 #e6a --> ¿Cuál es el nivel educacional al que asiste o el más alto al cual asistió?
@@ -110,6 +110,12 @@ CASEN$pueb_or <- recode(CASEN$pueb_or, "1:10=1; 11=0")
 CASEN$pueb_or <- set_labels(CASEN$pueb_or,
                             labels=c( "Sí"=1,
                                       "No"=0))
+
+CASEN$pueb_or <- factor(CASEN$pueb_or,
+             labels = c("No pertenece a algún pueblo originario", "Sí pertenece a algún pueblo originario"),
+             levels = c(0,1))
+
+
 # Nivel educativo
 frq(CASEN$educ)
 CASEN$educ <- recode(CASEN$educ, "1=0; 2:5=NA; 6:7=1; 8:11=2; 12:13=3; 14:15=4")
@@ -120,6 +126,10 @@ CASEN$educ <- set_labels(CASEN$educ,
                                    "Superior"=3,
                                    "Postgrados"=4))
 
+CASEN$educ <- factor(CASEN$educ,
+          labels = c("No asístió", "Básica", "Media", "Superior", "Postgrados"),
+          levels = c(0,1,2,3,4))
+
 # Tipo de institución de educación superior
 frq(CASEN$est_educ_sup)
 CASEN$est_educ_sup <- recode(CASEN$est_educ_sup, "NA=0; 1=1; 2=2; 3:5=3; 6=4; 7=3")
@@ -128,7 +138,11 @@ CASEN$est_educ_sup <- set_labels(CASEN$est_educ_sup,
                                    "Centro de Formación Técnica"=1,
                                    "Instituto Profesional"=2,
                                    "Universidad"=3,
-                                   "Postgrados"=4))
+                                   "Establecimiento de las Fuerzas Armadas"=4))
+
+CASEN$est_educ_sup <- factor(CASEN$est_educ_sup,
+                  labels = c("No asístió", "C.F.T.", "I.P.", "Universidad", "Establecimiento de las Fuerzas Armadas"),
+                  levels = c(0,1,2,3,4))
 
 # Estudiantes en el año 2022 que cuentan con gratuidad
 frq(CASEN$gratuidad)
@@ -136,6 +150,10 @@ CASEN$gratuidad <- recode(CASEN$gratuidad, "1=1; 2:3=0")
 CASEN$gratuidad <- set_labels(CASEN$gratuidad,
                    labels = c("Sí" = 1,
                               "No" = 0))
+
+CASEN$gratuidad <- factor(CASEN$gratuidad,
+               labels = c("No posee gratuidad", "Sí posee gratuidad"),
+               levels = c(0,1))
 
 # Estudiantes en el año 2022 que cuentan con algún crédito
 frq(CASEN$cred_univ)
@@ -147,12 +165,19 @@ CASEN$cred_univ <- set_labels(CASEN$cred_univ,
                               "Otro crédito" = 4,
                               "No cuenta con crédito" = 0))
 
+CASEN$cred_univ <- factor(CASEN$cred_univ,
+               labels = c("No cuenta con crédito", "Crédito universitario o fondo solidario", "Crédito con aval del Estado", "Crédito de institución", "Otro crédito"),
+               levels = c(0,1,2,3,4))
 # Trabaja
 frq(CASEN$trabajo)
 CASEN$trabajo <- recode(CASEN$trabajo, "1=1; 2=0")
 CASEN$trabajo <- set_labels(CASEN$trabajo,
                  labels = c("Sí" = 1,
                             "No" = 0))
+
+CASEN$trabajo <- factor(CASEN$trabajo,
+              labels = c("No tiene trabajo", "Sí tiene trabajo"),
+              levels = c(0,1))
 
 # Ingresos
 CASEN$ingresos <- recode(CASEN$ingresos, "0:469999=1; 470000:999999=2; 1000000:1999999=3;2000000:25000000=4")
@@ -161,6 +186,10 @@ CASEN$ingresos <- set_labels(CASEN$ingresos,
                              "Sueldo promedio" = 2,
                              "Sueldo alto" = 3,
                              "Sueldo muy alto" = 4))
+
+CASEN$ingresos <- factor(CASEN$ingresos,
+              labels = c("Menos del sueldo mínimo", "Sueldo promedio", "Sueldo alto", "Sueldo muy alto"),
+              levels = c(1,2,3,4))
 frq(CASEN$ingresos)
 #### 5. Generar base de datos procesada para el análisis ####
 ## 5.1 Reformatear objeto (CASEN) a BBDD
@@ -174,11 +203,3 @@ view(dfSummary(CASEN, headings=FALSE))
 ## 5.3 Guardar base de datos en una ruta particular
 save(CASEN, file ="input/CASEN.rdata")
 
-class(CASEN$pueb_or)
-CASEN$pueb_or <- as.factor(CASEN$pueb_or)
-CASEN$educ <- as.factor(CASEN$educ)
-CASEN$est_educ_sup <- as.factor(CASEN$est_educ_sup)
-CASEN$gratuidad <- as.factor(CASEN$gratuidad)
-CASEN$cred_univ <- as.factor(CASEN$cred_univ)
-CASEN$trabajo <- as.factor(CASEN$trabajo)
-CASEN$ingresos <- as.factor(CASEN$ingresos)
