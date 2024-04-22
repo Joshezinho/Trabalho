@@ -1,6 +1,3 @@
-"0","#| label: gr-1"
-"0",""
-"0","#| fig-cap: “Plots”"
 "0","sjmisc::descr(CASEN,"
 "0","              show = c(""label"",""range"", ""mean"", ""sd"", ""NA.prc"", ""n""))%>%"
 "0","  kable(.,""markdown"")"

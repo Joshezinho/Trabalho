@@ -66,7 +66,9 @@ Estas variables me ayudarán a entender si realmente existe una brecha en cuanto
 #| label: gr-1
 
 #| fig-cap: “Plots”
-stargazer(CASEN,type = "text")
+sjmisc::descr(CASEN,
+              show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
+  kable(.,"markdown")
 ```
 
 En esta acotada tabla podemos visualizar los casos que se encuentran en cada variable, podemos ver que como filtramos la base de datos para personas mayores de 18 años, y la variable gratuidad y crédito universitario responde netamente a estudiantes que optaron con alguno de estos beneficios en el año 2022.
@@ -75,5 +77,15 @@ En esta acotada tabla podemos visualizar los casos que se encuentran en cada var
 #| label: gr-2
 
 #| fig-cap: “Plots”
+sjmisc::descr(CASEN)
+```
+
+```{r}
+sjmisc::descr(CASEN,
+              show = c("label","range", "mean", "sd", "NA.prc", "n"))%>%
+  kable(.,"markdown")
+```
+
+```{r}
 view(dfSummary(CASEN, headings=FALSE))
 ```
