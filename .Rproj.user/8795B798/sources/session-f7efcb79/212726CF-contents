@@ -1,0 +1,123 @@
+#########################
+# Apoyo para obtencion de datos del Práctico 1 -  Estadística II UAH 2022'2  
+# Marcela Moraga Cubillos - memoraga@uc.cl
+#########################
+
+
+
+
+# 0. PREPARACIÓN ----------------------------------------------------------
+
+
+setwd("C:/Documentos/Practico1") #Indica dónde está su base de datos. También indica dónde se guardan sus códigos. 
+setwd("C:/Users/Kowalski/Documents/- Docencia laboral/- Estadistica/z- 2022'2 Estadistica II Sociologia UAH")
+rm(list=ls()) #Borra todo lo que está en el Global Envionment
+
+
+install.packages("haven") # Para leer archivos desde SPSS
+library(haven)
+install.packages("e1071") # Para medidas de forma 
+library(e1071) 
+install.packages("modeest") # Para moda
+library(modeest)
+
+
+
+# 1. LEER DATOS -----------------------------------------------------------
+# Leemos datos desde archivo "WVS_Chile_2018_seleccion.sav". 
+
+datos <- read_spss("Estadistica II, Practico 1 - WVS_Chile_2018_seleccion.sav")
+
+
+# 2. OBTENCIÓN DE MTC, MD y MF GENERAL  -----------------------------------
+# OBTENCIÓN DE MTC, MD y MF GENERAL del indicador de interés, considerando el total de las instituciones de educación superior:
+
+mean(datos$Y010, na.rm=TRUE) # Media o promedio aritmético. La opción "na.rm=TRUE" permite calcular la media para datos que tienen información perdida
+median(datos$Y010, na.rm=TRUE) # Mediana.
+mlv(datos$Y010, method = "mfv", na.rm = TRUE) #Moda
+summary(datos$Y010) # Otra manera de obtener medidas de tendencia central y de posición.
+
+sd(datos$Y010, na.rm=TRUE) # Desviación estándar
+var(datos$Y010, na.rm=TRUE) # Varianza
+max(datos$Y010, na.rm=TRUE) # Máximo
+min(datos$Y010, na.rm=TRUE) # Mínimo
+max(datos$Y010, na.rm=TRUE)- min(datos$Mt2_Salas, na.rm=TRUE) # Rango
+
+skewness(datos$Y010, na.rm=TRUE) # Asimetría
+kurtosis(datos$Y010, na.rm=TRUE) # Curtosis
+
+
+# 3. SELECCIONAR SUBSET DE GSE --------------------------------------------
+# Se seleccionan subset de los datos de diferentes GSE
+
+GSEalto <- datos[which(datos$Q287_rec==1), ] # subset de datos de GSEalto o medio alto
+GSEmedio <- datos[which(datos$Q287_rec==2), ] # subset de datos de GSEmedio
+GSEbajo <- datos[which(datos$Q287_rec==3), ] # subset de datos de GSE bajo
+
+
+
+# 4. OBTENCIÓN DE MTC, MD y MF EN GSE medio ---------------------------
+# OBTENCIÓN DE MTC, MD y MF EN GSE medio, para el indicador de interés
+
+#Este es el m?todo largo. M?s adelante va el m?todo corto
+
+mean(GSEmedio$Y010, na.rm=TRUE) # Media
+median(GSEmedio$Y010, na.rm=TRUE) # Mediana.
+mlv(GSEmedio$Y010, method = "mfv", na.rm = TRUE) #Moda
+
+sd(GSEmedio$Y010, na.rm=TRUE) # Desviación estándar
+var(GSEmedio$Y010, na.rm=TRUE) # Varianza
+max(GSEmedio$Y010, na.rm=TRUE) # Máximo
+min(GSEmedio$Y010, na.rm=TRUE) # Mínimo
+max(GSEmedio$Y010, na.rm=TRUE)- min(GSEmedio$Y010, na.rm=TRUE) # Rango
+
+summary(GSEmedio$Y010, na.rm=TRUE) # Otra forma de obtener los descriptivos
+
+skewness(GSEmedio$Y010, na.rm=TRUE) # Asimetría
+kurtosis(GSEmedio$Y010, na.rm=TRUE) # Curtosis
+
+
+#Y se repite para GSE alto y bajo
+
+#Ahora, el m?todo corto:
+
+aggregate(datos$Y010,by=list(datos$Q287_rec),summary,na.rm=TRUE)
+
+
+
+
+# 5. SELECCIONAR SUBSET SEGÚN NIVEL DE INTERES EN LA POLITICA -----------------
+# Se seleccionan subset de los datos de personas con diferentes niveles de interes en la politica
+
+#version larga
+muyinteresado <- datos[which(datos$Q199==1), ] # subset de datos de personas muy interesadas en la politica
+algointeresado <- datos[which(datos$Q199==2), ] # subset de datos de personas algo interesadas en la politica
+nointeresado <- datos[which(datos$Q199==3), ] # subset de datos de personas no interesadas en la politica
+nadainteresado <- datos[which(datos$Q199==4), ] # subset de datos de personas nada interesadas en la politica
+
+summary(muyinteresado$Y010, na.rm=TRUE) # Obtener los descriptivos
+summary(algointeresado$Y010, na.rm=TRUE)
+summary(nointeresado$Y010, na.rm=TRUE)
+summary(nadainteresado$Y010, na.rm=TRUE)
+
+#y la versi?n corta
+
+aggregate(datos$Y010,by=list(datos$Q199),summary,na.rm=TRUE)
+
+
+
+# 9. HISTOGRAMAS --------------------------------------------------------------
+
+#Para hacer esto, s? o s? ser? necesario crear los objetos "muy interesado" y "nada interesado"
+
+# Histograma del indicador de personas muy interesadas
+
+hist(muyinteresado$Y010)
+hist(muyinteresado$Y010, main = "Histograma de variable Y010 en Muy interesados", 
+     xlab = "Variable Y010", ylab = "Frecuencia")
+
+# Histograma del indicador de personas nada interesadas
+
+hist(nadainteresado$Y010)
+hist(nadainteresado$Y010, main = "Histograma de variable Y010 en Nada interesados", 
+     xlab = "Variable Y010", ylab = "Frecuencia")
