@@ -3,12 +3,12 @@
     "path": "~/GitHub/Trabalho/Trabalho5.qmd",
     "project_path": "Trabalho5.qmd",
     "type": "quarto_markdown",
-    "hash": "2662313749",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1713764047501.0,
     "source_on_save": false,
-    "relative_order": 3,
+    "relative_order": 2,
     "properties": {
         "rmdVisualMode": "true",
         "rmdVisualWrapConfigured": "true",
@@ -19,7 +19,7 @@
         "scrollLine": "0",
         "docOutlineVisible": "1",
         "rmdVisualCollapsedChunks": "",
-        "rmdVisualModeLocation": "2:86"
+        "rmdVisualModeLocation": "2:0"
     },
     "folds": "",
     "lastKnownWriteTime": 1713301458,
