@@ -61,6 +61,11 @@ En este caso trabajaré con siete variables que me otorga la base de datos de la
 Estas variables me ayudarán a entender si realmente existe una brecha en cuanto al acceso a la educación superior y por supuesto generar la comparativa entre el nivel educativo, la inserción laboral y de la mano los ingresos.
 
 ```{r}
-view(dfSummary(CASEN, headings=FALSE))
+stargazer(CASEN,type = "text")
+```
 
+```{r}
+#| label: tbl-2
+#| tbl-cap: “Descriptivos BBDD extendida”
+view(dfSummary(CASEN, headings=FALSE))
 ```
