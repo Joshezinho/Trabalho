@@ -1,0 +1,1 @@
+{"frames":[],"message":"Error in CASEN %>% ggplot(aes(x = ingresos, fill = pueb_or)) + geom_bar() +  : \n  non-numeric argument to binary operator\n"}

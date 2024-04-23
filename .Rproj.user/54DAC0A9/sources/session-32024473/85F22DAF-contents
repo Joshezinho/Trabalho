@@ -80,16 +80,71 @@ En esta acotada tabla podemos visualizar los casos que se encuentran en cada var
 summarytools::dfSummary(CASEN, plain.ascii = FALSE)
 ```
 
-En esta segunda tabla, podemos ver más o menos la distribución de cada variable. En este caso ya podemos comenzar a analizar esta un poco más en profundidad. En un primer momento podemos visualizar la diferencia entre las personas pertenecientes a pueblos originarios y las que no. En cuanto a la educación, se puede ver en el gráfico una forma parecida a la de una curva normal, pero posteriormente ahondaré en ello. En cuanto a la gratuidad y los créditos, las personas que fueron (o pueden seguir siendo) estudiantes de educación superior en el año 2022, una proporción no menor representa aquellos estudiantes que estudian con gratuidad. Por último, respecto a los ingresos, la forma de la curva presenta asimetría, que se puede interpretar como que mayor cantidada de personas tienen en este caso un sueldo bajo en comparación con las personas que tienen sueldos muy abultados.
+En esta segunda tabla, podemos ver más o menos la distribución de cada variable. En este caso ya podemos comenzar a analizar esta un poco más en profundidad. En un primer momento podemos visualizar la diferencia entre las personas pertenecientes a pueblos originarios y las que no. En cuanto a la educación, se puede ver en el gráfico una forma parecida a la de una curva normal, pero posteriormente ahondaré en ello. En cuanto a la gratuidad y los créditos, las personas que fueron (o pueden seguir siendo) estudiantes de educación superior en el año 2022, una proporción no menor representa aquellos estudiantes que estudian con gratuidad. Por último, respecto a los ingresos, la forma de la curva presenta asimetría, que se puede interpretar como que mayor cantidada de personas obtienen por su trabajo, en este caso, menos del suelo mínimo en comparación con las personas que tienen sueldos muy abultados.
 
 ```{r}
 #| label: tab-3
 
 #| fig-cap: “Plots”
-sjt.xtab(CASEN$pueb_or, CASEN$educ,
+sjt.xtab(CASEN$educ, CASEN$pueb_or,
+        show.col.prc=TRUE,
+        show.summary=FALSE,
+        encoding = "UTF-8")
+```
+
+Si bien, las diferencias entre pertenecer y no a un pueblo orignario respondiendo a su nivel educativo son muy diferente en cuanto a frecuencias, lo correcto sería sólo visualizar los porcentajes, ya que nos entregan, valga la redundancia, la proporción de personas de pueblos originarios o no respecto a su nivel educativo. Es visible que en proporciós más personas no asistieron a ningún tipo de educación siendo de pueblos originarios que las que no pertenecen. La educación básica y media es muy similar. Ahora respecto a estudios superiores está lo interesante, las personas que pertenecen a pueblos originarios, si bien, logran alcanzar la educación superior, la proporción es menor, lo mismo con estudios de postgrados, es casi 1% más en las personas que no pertenecen a pueblos origniarios. Muy al contrario de lo que uno puede creer, las personas de pueblos originarios, si logran en una proporción no menor, estudios superiores.
+
+```{r}
+#| label: tab-4
+
+#| fig-cap: “Plots”
+sjt.xtab(CASEN$est_educ_sup, CASEN$pueb_or,
+        show.col.prc=TRUE,
+        show.summary=FALSE,
+        encoding = "UTF-8")
+```
+
+Aquí se repite un poco la tendencia, las personas no pertenecientes logran alcanzar estudios superiores, independiente del establecimiento. Ahora bien, se ve que en general, son más las personas que no alcanzan niveles superiores de educación.
+
+```{r}
+#| label: tab-5
+
+#| fig-cap: “Plots”
+sjt.xtab(CASEN$gratuidad, CASEN$pueb_or,
+        show.col.prc=TRUE,
+        show.summary=FALSE,
+        encoding = "UTF-8")
+```
+
+En esta tabla, es visible la cantidad de personas que no poseen gratuidad, esto quiere decir que por alguna razón (que desconocemos), puede ser que las personas que si pertenecen a algún pueblo originario, deban optar a algún crédito, eso lo visibilizaremos a continuación:
+
+```{r}
+#| label: tab-6
+
+#| fig-cap: “Plots”
+sjt.xtab(CASEN$cred_univ, CASEN$pueb_or,
+        show.col.prc=TRUE,
+        show.summary=FALSE,
+        encoding = "UTF-8")
+```
+
+En este caso la distribución es bastante similar en cuanto a la pertenencia de pueblos originarios y si poseen o no un crédito de algún tipo. Es muy posible, que muchas personas pertenecientes a pueblos originarios puedan contar con una beca, pero en general muchas personas optan a créditos por ambos lados.
+
+```{r}
+#| label: tab-3
+
+#| fig-cap: “Plots”
+sjt.xtab(CASEN$educ, CASEN$pueb_or,
         show.col.prc=TRUE,
         show.summary=FALSE,
         encoding = "UTF-8")
 ```
 
 ##### Gráficos
+
+Ahora bien, pudimos ver más o menos la distribución de personas pertenecientes a peblos originarios y no, con diversas variables. Lo que me propongo hacer de aquí en más, es demostrar con gráficos las dos variables que nos quedan por explorar.
+
+```{r}
+datos <- CASEN %>% group_by(trabajo, pueb_or) %>% 
+  summarise(promedio = mean())
+```

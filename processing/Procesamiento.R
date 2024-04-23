@@ -20,7 +20,7 @@ CASEN1 <- read_sav("input/CASEN.sav")
 
 # 2.3 Filtrar por edad (mayores de 18 años)
 CASEN <- CASEN1 %>% dplyr::filter(edad>=18)
-CASEN1$e8
+
 #### 3. Selección de variables ####
 # r3 --> pueblos originarios
 #e6a --> ¿Cuál es el nivel educacional al que asiste o el más alto al cual asistió?
@@ -180,16 +180,8 @@ CASEN$trabajo <- factor(CASEN$trabajo,
               levels = c(0,1))
 
 # Ingresos
-CASEN$ingresos <- recode(CASEN$ingresos, "0:469999=1; 470000:999999=2; 1000000:1999999=3;2000000:25000000=4")
-CASEN$ingresos <- set_labels(CASEN$ingresos,
-                  labels = c("Menos del sueldo mínimo" = 1,
-                             "Sueldo promedio" = 2,
-                             "Sueldo alto" = 3,
-                             "Sueldo muy alto" = 4))
-
-CASEN$ingresos <- factor(CASEN$ingresos,
-              labels = c("Menos del sueldo mínimo", "Sueldo promedio", "Sueldo alto", "Sueldo muy alto"),
-              levels = c(1,2,3,4))
+CASEN$ingresos <- as.numeric(CASEN$ingresos)
+class(CASEN$ingresos)
 frq(CASEN$ingresos)
 #### 5. Generar base de datos procesada para el análisis ####
 ## 5.1 Reformatear objeto (CASEN) a BBDD

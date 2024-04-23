@@ -3,7 +3,7 @@
     "path": "~/GitHub/Trabalho/processing/Procesamiento.R",
     "project_path": "processing/Procesamiento.R",
     "type": "r_source",
-    "hash": "937254680",
+    "hash": "286383958",
     "contents": "",
     "dirty": false,
     "created": 1713812269827.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "204,0",
-        "scrollLine": "177"
+        "cursorPosition": "196,0",
+        "scrollLine": "169"
     },
     "folds": "",
-    "lastKnownWriteTime": 1713830157,
+    "lastKnownWriteTime": 1713833048,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1713830157822,
+    "last_content_update": 1713833048086,
     "read_only": false,
     "read_only_alternatives": []
 }
