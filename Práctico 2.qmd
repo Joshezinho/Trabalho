@@ -26,7 +26,7 @@ Para efectos de esta investigación es que haré uso de la base de datos de la E
 
 ##### Cargar paquetes.
 
-Para efectos de lo descrito anteriormente, es menester poder visualizar las diversas formas de poder entender el fenómeno y en última instancia explicarlo. Si bien, cuando trabajamos con un script de R, lo primero que debemos hacer es contemplar los "paquetes" que debemos usar. Y para eso, usamos el siguiente código, que nos permite hacer de todo tipo de manipulación y análisis según lo fuesemos requiriendo.
+Para efectos de lo descrito anteriormente, es menester poder visualizar las diversas formas de poder entender el fenómeno y en última instancia explicarlo. Si bien, cuando trabajamos con un script de R, lo primero que debemos hacer es contemplar los "paquetes" que debemos usar. Y para eso, usamos el siguiente código, que nos permite hacer de todo tipo de manipulación y análisis según lo fuésemos requiriendo.
 
 ```{r}
 pacman::p_load(sjlabelled,
@@ -71,7 +71,7 @@ sjmisc::descr(CASEN,
   kable(.,"markdown")
 ```
 
-En esta acotada tabla podemos visualizar los casos que se encuentran en cada variable, la media, y la desviación estandar, es necesario especificar que la variable gratuidad y crédito universitario responde netamente a estudiantes que optaron con alguno de estos beneficios en el año 2022.
+En esta acotada tabla podemos visualizar los casos que se encuentran en cada variable, la media, y la desviación estándar, es necesario especificar que la variable gratuidad y crédito universitario responde netamente a estudiantes que optaron con alguno de estos beneficios en el año 2022.
 
 ```{r}
 #| label: tab-2
@@ -80,7 +80,7 @@ En esta acotada tabla podemos visualizar los casos que se encuentran en cada var
 summarytools::dfSummary(CASEN, plain.ascii = FALSE)
 ```
 
-En esta segunda tabla, podemos ver más o menos la distribución de cada variable. En este caso ya podemos comenzar a analizar esta un poco más en profundidad. En un primer momento podemos visualizar la diferencia entre las personas pertenecientes a pueblos originarios y las que no. En cuanto a la educación, se puede ver en el gráfico una forma parecida a la de una curva normal, pero posteriormente ahondaré en ello. En cuanto a la gratuidad y los créditos, las personas que fueron (o pueden seguir siendo) estudiantes de educación superior en el año 2022, una proporción no menor representa aquellos estudiantes que estudian con gratuidad. Por último, respecto a los ingresos, la forma de la curva presenta asimetría, que se puede interpretar como que mayor cantidada de personas obtienen por su trabajo, en este caso, menos del suelo mínimo en comparación con las personas que tienen sueldos muy abultados.
+En esta segunda tabla, podemos ver más o menos la distribución de cada variable. En este caso ya podemos comenzar a analizar esta un poco más en profundidad. En un primer momento podemos visualizar la diferencia entre las personas pertenecientes a pueblos originarios y las que no. En cuanto a la educación, se puede ver en el gráfico una forma parecida a la de una curva normal, pero posteriormente ahondaré en ello. En cuanto a la gratuidad y los créditos, las personas que fueron (o pueden seguir siendo) estudiantes de educación superior en el año 2022, una proporción no menor representa aquellos estudiantes que estudian con gratuidad. Por último, respecto a los ingresos, la forma de la curva presenta asimetría, que se puede interpretar como que mayor cantidad de personas obtienen por su trabajo, en este caso, menos del sueldo mínimo en comparación con las personas que tienen sueldos muy abultados.
 
 ```{r}
 #| label: tab-3
@@ -92,7 +92,7 @@ sjt.xtab(CASEN$educ, CASEN$pueb_or,
         encoding = "UTF-8")
 ```
 
-Si bien, las diferencias entre pertenecer y no a un pueblo orignario respondiendo a su nivel educativo son muy diferente en cuanto a frecuencias, lo correcto sería sólo visualizar los porcentajes, ya que nos entregan, valga la redundancia, la proporción de personas de pueblos originarios o no respecto a su nivel educativo. Es visible que en proporciós más personas no asistieron a ningún tipo de educación siendo de pueblos originarios que las que no pertenecen. La educación básica y media es muy similar. Ahora respecto a estudios superiores está lo interesante, las personas que pertenecen a pueblos originarios, si bien, logran alcanzar la educación superior, la proporción es menor, lo mismo con estudios de postgrados, es casi 1% más en las personas que no pertenecen a pueblos origniarios. Muy al contrario de lo que uno puede creer, las personas de pueblos originarios, si logran en una proporción no menor, estudios superiores.
+Si bien, las diferencias entre pertenecer y no a un pueblo originario respondiendo a su nivel educativo son muy diferente en cuanto a frecuencias, lo correcto sería sólo visualizar los porcentajes, ya que nos entregan, valga la redundancia, la proporción de personas de pueblos originarios o no respecto a su nivel educativo. Es visible que en proporción más personas no asistieron a ningún tipo de educación siendo de pueblos originarios que las que no pertenecen. La educación básica y media es muy similar. Ahora respecto a estudios superiores está lo interesante, las personas que pertenecen a pueblos originarios, si bien, logran alcanzar la educación superior, la proporción es menor, lo mismo con estudios de postgrados, es casi 1% más en las personas que no pertenecen a pueblos originarios. Muy al contrario de lo que uno puede creer, las personas de pueblos originarios, si logran en una proporción no menor, estudios superiores.
 
 ```{r}
 #| label: tab-4
@@ -116,7 +116,7 @@ sjt.xtab(CASEN$gratuidad, CASEN$pueb_or,
         encoding = "UTF-8")
 ```
 
-En esta tabla, es visible la cantidad de personas que no poseen gratuidad, esto quiere decir que por alguna razón (que desconocemos), puede ser que las personas que si pertenecen a algún pueblo originario, deban optar a algún crédito, eso lo visibilizaremos a continuación:
+En esta tabla, es visible la cantidad de personas que no poseen gratuidad, esto quiere decir que por alguna razón (que desconocemos), puede ser que las personas que sí pertenecen a algún pueblo originario, deban optar a algún crédito, eso lo visualizamos a continuación:
 
 ```{r}
 #| label: tab-6
@@ -142,15 +142,68 @@ sjt.xtab(CASEN$educ, CASEN$pueb_or,
 
 ##### Gráficos
 
-Ahora bien, pudimos ver más o menos la distribución de personas pertenecientes a peblos originarios y no, con diversas variables. Lo que me propongo hacer de aquí en más, es demostrar con gráficos las dos variables que nos quedan por explorar.
+Ahora bien, pudimos ver más o menos la distribución de personas pertenecientes a pueblos originarios y no, con diversas variables. Lo que me propongo hacer de aquí en más, es demostrar con gráficos las dos variables que nos quedan por explorar.
 
 ```{r}
-datos <- CASEN %>% group_by(trabajo, pueb_or) %>% 
-  summarise(promedio = mean(ingresos))
-ggplot(datos, aes(x =pueb_or, y = promedio)) +
-  geom_point() +
-  labs(x = "Inserción laboral", y = "Ingresos mensuales") +
-  theme_bw()+
-  ylim(0, 12)+
-  facet_wrap(~trabajo)
+#| label: tab-8
+
+#| fig-cap: “Plots”
+sjt.xtab(CASEN$trabajo, CASEN$pueb_or,
+        show.col.prc=TRUE,
+        show.summary=FALSE,
+        encoding = "UTF-8")
 ```
+
+```{r}
+#| label: gr-1
+
+#| fig-cap: “Plots”
+graph3 <- CASEN %>% ggplot(aes(x = trabajo, fill = pueb_or)) + 
+  geom_bar() +
+  xlab("Inserción en el mundo laboral") +
+  ylab("Cantidad") + 
+  labs(fill="Pertenencia a pueblos originarios")+
+  scale_fill_discrete(labels = c('No pertenece',"Sí pertenece"))
+
+graph3
+```
+
+En este caso, construimos una tabla que refleja la cantidad de personas empleadas y desempleadas. Posteriormente construimos el gráfico que también lo representa. El análisis más allá, es evidente, las personas que tienen o no tienen trabajo son similares en proporción, tanto para pertenecientes a pueblos originarios como para los que no pertenecen.
+
+```{r}
+#| label: tab-9
+
+#| fig-cap: “Plots”
+sjt.xtab(CASEN$ingresos, CASEN$pueb_or,
+        show.col.prc=TRUE,
+        show.summary=FALSE,
+        encoding = "UTF-8")
+```
+
+```{r}
+#| label: gr-2
+
+#| fig-cap: “Plots”
+graph3 <- CASEN %>%
+  na.omit() %>%
+  ggplot(aes(x = ingresos, fill = pueb_or)) +
+  geom_bar() +
+  xlab("Niveles de sueldo") +
+  ylab("Cantidad") + 
+  labs(fill="Pertenencia a los pueblos originarios")+
+  scale_fill_discrete(labels = c('No pertenece','Sí pertenece'))
+
+graph3
+```
+
+Al comparar la tabla generada para los ingresos y el gráfico, podemos ver que en general hay una tendencia en que las personas reciban menos del sueldo mínimo, mientras que cada categoría que pasa la frecuencia de personas dentro de estas va disminuyendo. La comparación entre personas no pertenecientes y pertenecientes es en suma, muy similar, no hay grandes diferencias entre unas y otras, más allá de que hay muchas más personas que no perteneces que las que sí.
+
+##### Conclusión
+
+En líneas generales, lo que se ve con las tablas y gráficos es que la diferencia entre personas pertenecientes a pueblos originarios y las que no, no es muy heterogénea. En general, son bastante similares, claramente no en números pero sí en proporciones.
+
+Ahora bien, esto quiere decir que las políticas implementadas para las personas pertenecientes a pueblos originarios son útiles, el acceso a la educación está mucho más al alcance de las personas, desde la educación pre escolar, pasando por la básica, media y llegando a la superior (las personas que estudian postgrados son un número muy reducido), lo que habla muy bien de la nivelación de personas de pueblos originarios y no.
+
+Esta investigación se presentaba como hipótesis que la comparativa general iba a ser de que las personas pertenecientes a pueblos originarios eran mucho más perjudicadas, esto referido al acceso a la educación, a la inserción laboral y finalmente a los ingresos. Pero quedó demostrado que en general las variaciones son muy pequeñas y por supuesto no hay que dejar de observar el número de casos en cada categoría.
+
+Las limitaciones que vi en esta investigación son las siguientes: 1) la base de datos de la CASEN 2022 no pregunta por el establecimiento educacional en el que estudió la persona, por lo que no pude hacer uso de esa variable; y 2) la literatura empleada en la introducción puede que sea insuficiente para explicar el fenómeno.

@@ -3,9 +3,9 @@
     "path": "~/GitHub/Trabalho/Práctico 2.qmd",
     "project_path": "Práctico 2.qmd",
     "type": "quarto_markdown",
-    "hash": "1630704446",
+    "hash": "2758870375",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1713811931688.0,
     "source_on_save": false,
     "relative_order": 2,
@@ -16,16 +16,16 @@
         "Source": "Source",
         "docOutlineVisible": "0",
         "rmdVisualCollapsedChunks": "",
-        "rmdVisualModeLocation": "11948:4549",
-        "cursorPosition": "146,0",
-        "scrollLine": "0"
+        "rmdVisualModeLocation": "13668:7103",
+        "cursorPosition": "200,0",
+        "scrollLine": "19"
     },
     "folds": "",
-    "lastKnownWriteTime": 1713834005,
+    "lastKnownWriteTime": 1713838790,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1713834137885,
+    "last_content_update": 1713838790125,
     "read_only": false,
     "read_only_alternatives": []
 }

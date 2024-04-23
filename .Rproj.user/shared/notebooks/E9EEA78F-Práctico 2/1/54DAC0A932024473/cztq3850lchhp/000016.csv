@@ -1,7 +1,0 @@
-"0","graph4 <- ggplot(CASEN, aes(x = as.numeric(ingresos))) +"
-"0","  geom_histogram(binwidth=0.6, colour=""black"", fill=""yellow"") +"
-"0","  theme_bw() +"
-"0","  xlab(""Edad"") +"
-"0","  ylab(""Cantidad"")"
-"0",""
-"0","graph4 "
