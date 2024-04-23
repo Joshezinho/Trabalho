@@ -1,0 +1,46 @@
+"0","#| label: tab-2"
+"0",""
+"0","#| fig-cap: “Plots”"
+"0","summarytools::dfSummary(CASEN, plain.ascii = FALSE)"
+"1","### Data Frame Summary  
+#### CASEN  
+**Dimensions:** 158509 x 7  
+**Duplicates:** 153453  
+
+--------------------------------------------------------------------------------------------------------------------------
+No   Variable        Stats / Values                     Freqs (% of Valid)     Graph                  Valid      Missing  
+---- --------------- ---------------------------------- ---------------------- ---------------------- ---------- ---------
+1    pueb_or\        1\. No pertenece a algún pueb\     137785 (86.9%)\        IIIIIIIIIIIIIIIII \    158509\    0\       
+     [factor]        2\. Sí pertenece a algún pueb      20724 (13.1%)          II                     (100.0%)   (0.0%)   
+
+2    educ\           1\. No asístió\                    3035 ( 1.9%)\          \                      157721\    788\     
+     [factor]        2\. Básica\                        36862 (23.4%)\         IIII \                 (99.5%)    (0.5%)   
+                     3\. Media\                         68204 (43.2%)\         IIIIIIII \                                 
+                     4\. Superior\                      47301 (30.0%)\         IIIII \                                    
+                     5\. Postgrados                     2319 ( 1.5%)                                                      
+
+3    est_educ_sup\   1\. No asístió\                    121585 (76.7%)\        IIIIIIIIIIIIIII \      158509\    0\       
+     [factor]        2\. C.F.T.\                        4555 ( 2.9%)\          \                      (100.0%)   (0.0%)   
+                     3\. I.P.\                          10308 ( 6.5%)\         I \                                        
+                     4\. Universidad\                   21526 (13.6%)\         II \                                       
+                     5\. Establecimiento de las Fu      535 ( 0.3%)                                                       
+
+4    gratuidad\      1\. No posee gratuidad\            6691 (55.5%)\          IIIIIIIIIII \          12055\     146454\  
+     [factor]        2\. Sí posee gratuidad             5364 (44.5%)           IIIIIIII               (7.6%)     (92.4%)  
+
+5    cred_univ\      1\. No cuenta con crédito\         4136 (60.2%)\          IIIIIIIIIIII \         6876\      151633\  
+     [factor]        2\. Crédito universitario o f\     406 ( 5.9%)\           I \                    (4.3%)     (95.7%)  
+                     3\. Crédito con aval del Esta\     1368 (19.9%)\          III \                                      
+                     4\. Crédito de institución\        131 ( 1.9%)\           \                                          
+                     5\. Otro crédito                   835 (12.1%)            II                                         
+
+6    trabajo\        1\. No tiene trabajo\              78305 (49.4%)\         IIIIIIIII \            158509\    0\       
+     [factor]        2\. Sí tiene trabajo               80204 (50.6%)          IIIIIIIIII             (100.0%)   (0.0%)   
+
+7    ingresos\       Mean (sd) : 661569.1 (645766.3)\   1185 distinct values   :\                     59644\     98865\   
+     [numeric]       min < med < max:\                                         :\                     (37.6%)    (62.4%)  
+                     0 < 490000 < 25000000\                                    :\                                         
+                     IQR (CV) : 350000 (1)                                     :\                                         
+                                                                               :                                          
+--------------------------------------------------------------------------------------------------------------------------
+"

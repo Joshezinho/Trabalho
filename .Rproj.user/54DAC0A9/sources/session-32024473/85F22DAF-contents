@@ -131,7 +131,7 @@ sjt.xtab(CASEN$cred_univ, CASEN$pueb_or,
 En este caso la distribución es bastante similar en cuanto a la pertenencia de pueblos originarios y si poseen o no un crédito de algún tipo. Es muy posible, que muchas personas pertenecientes a pueblos originarios puedan contar con una beca, pero en general muchas personas optan a créditos por ambos lados.
 
 ```{r}
-#| label: tab-3
+#| label: tab-7
 
 #| fig-cap: “Plots”
 sjt.xtab(CASEN$educ, CASEN$pueb_or,
@@ -145,6 +145,11 @@ sjt.xtab(CASEN$educ, CASEN$pueb_or,
 Ahora bien, pudimos ver más o menos la distribución de personas pertenecientes a peblos originarios y no, con diversas variables. Lo que me propongo hacer de aquí en más, es demostrar con gráficos las dos variables que nos quedan por explorar.
 
 ```{r}
-datos <- CASEN %>% group_by(trabajo, pueb_or) %>% 
-  summarise(promedio = mean())
+graph4 <- ggplot(CASEN, aes(x = as.numeric(ingresos))) +
+  geom_histogram(binwidth=0.6, colour="black", fill="yellow") +
+  theme_bw() +
+  xlab("Edad") +
+  ylab("Cantidad")
+
+graph4 
 ```
