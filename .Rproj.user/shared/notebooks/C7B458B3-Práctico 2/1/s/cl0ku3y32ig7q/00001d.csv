@@ -1,0 +1,3 @@
+"0","#| label: tbl-2"
+"0","#| tbl-cap: “Descriptivos BBDD extendida”"
+"0","view(dfSummary(CASEN, headings=FALSE))"
