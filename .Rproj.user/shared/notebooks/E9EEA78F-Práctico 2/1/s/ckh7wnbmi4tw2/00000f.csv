@@ -1,0 +1,11 @@
+"0","#| label: tbl-2"
+"0","#| tbl-cap: “Descriptivos BBDD extendida”"
+"0","view(dfSummary(CASEN, headings=FALSE))"
+"1","[1m[33mError[39m in `as.numeric()`:[22m
+[33m![39m Can't convert `x` <haven_labelled> to <double>.
+Backtrace:
+[90m 1. [39m[1msummarytools[22m::view(dfSummary(CASEN, headings = FALSE))
+[90m 2. [39msummarytools::dfSummary(CASEN, headings = FALSE)
+[90m 3. [39msummarytools:::detect_barcode(column_data)
+[90m 7. [39m[1m[94mvctrs:::as.double.vctrs_vctr([39m[22mx[1m[94m)[39m[22m
+"

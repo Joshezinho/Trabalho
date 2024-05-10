@@ -1,0 +1,18 @@
+{
+    "entries": [
+        {
+            "file": "Trabalho5.qmd",
+            "type": "fig",
+            "id": "gdp",
+            "suffix": "",
+            "title": "“Plots”"
+        },
+        {
+            "file": "Trabalho5.qmd",
+            "type": "tbl",
+            "id": "sjmisc",
+            "suffix": "",
+            "title": "“Descriptivos con sjmisc”"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+"0","graph3 <- CASEN %>% ggplot(aes(x = trabajo, fill = pueb_or)) + "
+"0","  geom_bar() +"
+"0","  xlab(""Inserción en el mundo laboral"") +"
+"0","  ylab(""Cantidad"") + "
+"0","  labs(fill=""Pertenencia a pueblos originarios"")+"
+"0","  scale_fill_discrete(labels = c('No pertenece',""Sí pertenece""))"
+"0",""
+"0","graph3"

@@ -1,0 +1,7 @@
+"0","context_data <- wvs %>% group_by(B_COUNTRY) %>% # Agrupar por país"
+"0","  summarise(gdp = mean(GDPpercap1, na.rm = TRUE), # Promedio de GDP per capita"
+"0","         life_exp = mean(lifeexpect, na.rm = TRUE), # Promedio esperanza de vida"
+"0","         gini = mean(giniWB, na.rm = TRUE)) %>%  # Promedio gini"
+"0","  rename(idenpa=B_COUNTRY) # Para poder vincular ambas bases, es necesario que la variable de identificación se llamen igual"
+"2","Error: object 'wvs' not found
+"

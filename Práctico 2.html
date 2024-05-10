@@ -126,7 +126,7 @@ div.csl-indent {
 </section>
 <section id="cargar-paquetes." class="level5">
 <h5 class="anchored" data-anchor-id="cargar-paquetes.">Cargar paquetes.</h5>
-<p>Para efectos de lo descrito anteriormente, es menester poder visualizar las diversas formas de poder entender el fenómeno y en última instancia explicarlo. Si bien, cuando trabajamos con un script de R, lo primero que debemos hacer es contemplar los “paquetes” que debemos usar. Y para eso, usamos el siguiente código, que nos permite hacer de todo tipo de manipulación y análisis según lo fuesemos requiriendo.</p>
+<p>Para efectos de lo descrito anteriormente, es menester poder visualizar las diversas formas de poder entender el fenómeno y en última instancia explicarlo. Si bien, cuando trabajamos con un script de R, lo primero que debemos hacer es contemplar los “paquetes” que debemos usar. Y para eso, usamos el siguiente código, que nos permite hacer de todo tipo de manipulación y análisis según lo fuésemos requiriendo.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sjlabelled,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               dplyr, <span class="co">#Manipulacion de datos</span></span>
@@ -157,22 +157,748 @@ div.csl-indent {
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sjlabelled<span class="sc">::</span><span class="fu">get_label</span>(CASEN)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                                        pueb_or 
-            "Pertenencia a pueblos originarios" 
-                                           educ 
-             "Máximo nivel educativo alcanzado" 
-                                   est_educ_sup 
-"Tipo de establecimiento de educación superior" 
-                                      gratuidad 
-            "Posee gratuidad (estudiante 2022)" 
-                                      cred_univ 
-        "Posee algún crédito (estudiante 2022)" 
-                                        trabajo 
-                                      "Trabajo" 
-                                       ingresos 
-                      "Ingresos del mes pasado" </code></pre>
+<pre><code>     pueb_or         educ est_educ_sup    gratuidad    cred_univ      trabajo 
+          ""           ""           ""           ""           ""           "" 
+    ingresos 
+          "" </code></pre>
 </div>
 </div>
+<p>En este caso trabajaré con siete variables que me otorga la base de datos de la CASEN, siendo estas la pertenencia a algún pueblo originario, el nivel educativo, el tipo de establecimiento de educación superior, si para el año 2022 poseía gratuidad, como también si optó por algún tipo de crédito, si la persona tiene trabajo (o trabajó al menos el mes pasado) y los ingresos del mes pasado.</p>
+<p>Estas variables me ayudarán a entender si realmente existe una brecha en cuanto al acceso a la educación superior y por supuesto generar la comparativa entre el nivel educativo, la inserción laboral y de la mano los ingresos.</p>
+</section>
+<section id="obtener-descriptivos" class="level5">
+<h5 class="anchored" data-anchor-id="obtener-descriptivos">Obtener descriptivos</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: “Plots”</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">descr</span>(CASEN,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">show =</span> <span class="fu">c</span>(<span class="st">"label"</span>,<span class="st">"range"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"NA.prc"</span>, <span class="st">"n"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(.,<span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 9%">
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 13%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">var</th>
+<th style="text-align: left;">label</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">NA.prc</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: left;">range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">pueb_or</td>
+<td style="text-align: left;">pueb_or</td>
+<td style="text-align: right;">158509</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">1.130743</td>
+<td style="text-align: right;">0.3371205</td>
+<td style="text-align: left;">1 (1-2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">educ</td>
+<td style="text-align: left;">educ</td>
+<td style="text-align: right;">157721</td>
+<td style="text-align: right;">0.4971327</td>
+<td style="text-align: right;">3.057107</td>
+<td style="text-align: right;">0.8161780</td>
+<td style="text-align: left;">4 (1-5)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">est_educ_sup</td>
+<td style="text-align: left;">est_educ_sup</td>
+<td style="text-align: right;">158509</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">1.579708</td>
+<td style="text-align: right;">1.1086193</td>
+<td style="text-align: left;">4 (1-5)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">gratuidad</td>
+<td style="text-align: left;">gratuidad</td>
+<td style="text-align: right;">12055</td>
+<td style="text-align: right;">92.3947536</td>
+<td style="text-align: right;">1.444961</td>
+<td style="text-align: right;">0.4969820</td>
+<td style="text-align: left;">1 (1-2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">cred_univ</td>
+<td style="text-align: left;">cred_univ</td>
+<td style="text-align: right;">6876</td>
+<td style="text-align: right;">95.6620760</td>
+<td style="text-align: right;">1.999855</td>
+<td style="text-align: right;">1.4035280</td>
+<td style="text-align: left;">4 (1-5)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">trabajo</td>
+<td style="text-align: left;">trabajo</td>
+<td style="text-align: right;">158509</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">1.505990</td>
+<td style="text-align: right;">0.4999657</td>
+<td style="text-align: left;">1 (1-2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">ingresos</td>
+<td style="text-align: left;">ingresos</td>
+<td style="text-align: right;">59644</td>
+<td style="text-align: right;">62.3718527</td>
+<td style="text-align: right;">1.712746</td>
+<td style="text-align: right;">0.8219964</td>
+<td style="text-align: left;">3 (1-4)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>En esta acotada tabla podemos visualizar los casos que se encuentran en cada variable, la media, y la desviación estándar, es necesario especificar que la variable gratuidad y crédito universitario responde netamente a estudiantes que optaron con alguno de estos beneficios en el año 2022.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: “Plots”</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">dfSummary</span>(CASEN, <span class="at">plain.ascii =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>### Data Frame Summary  
+#### CASEN  
+**Dimensions:** 158509 x 7  
+**Duplicates:** 158083  
+
+----------------------------------------------------------------------------------------------------------------------
+No   Variable        Stats / Values                   Freqs (% of Valid)   Graph                  Valid      Missing  
+---- --------------- -------------------------------- -------------------- ---------------------- ---------- ---------
+1    pueb_or\        1\. No pertenece a algún pueb\   137785 (86.9%)\      IIIIIIIIIIIIIIIII \    158509\    0\       
+     [factor]        2\. Sí pertenece a algún pueb    20724 (13.1%)        II                     (100.0%)   (0.0%)   
+
+2    educ\           1\. No asístió\                  3035 ( 1.9%)\        \                      157721\    788\     
+     [factor]        2\. Básica\                      36862 (23.4%)\       IIII \                 (99.5%)    (0.5%)   
+                     3\. Media\                       68204 (43.2%)\       IIIIIIII \                                 
+                     4\. Superior\                    47301 (30.0%)\       IIIII \                                    
+                     5\. Postgrados                   2319 ( 1.5%)                                                    
+
+3    est_educ_sup\   1\. No asístió\                  121585 (76.7%)\      IIIIIIIIIIIIIII \      158509\    0\       
+     [factor]        2\. C.F.T.\                      4555 ( 2.9%)\        \                      (100.0%)   (0.0%)   
+                     3\. I.P.\                        10308 ( 6.5%)\       I \                                        
+                     4\. Universidad\                 21526 (13.6%)\       II \                                       
+                     5\. Establecimiento de las Fu    535 ( 0.3%)                                                     
+
+4    gratuidad\      1\. No posee gratuidad\          6691 (55.5%)\        IIIIIIIIIII \          12055\     146454\  
+     [factor]        2\. Sí posee gratuidad           5364 (44.5%)         IIIIIIII               (7.6%)     (92.4%)  
+
+5    cred_univ\      1\. No cuenta con crédito\       4136 (60.2%)\        IIIIIIIIIIII \         6876\      151633\  
+     [factor]        2\. Crédito universitario o f\   406 ( 5.9%)\         I \                    (4.3%)     (95.7%)  
+                     3\. Crédito con aval del Esta\   1368 (19.9%)\        III \                                      
+                     4\. Crédito de institución\      131 ( 1.9%)\         \                                          
+                     5\. Otro crédito                 835 (12.1%)          II                                         
+
+6    trabajo\        1\. No tiene trabajo\            78305 (49.4%)\       IIIIIIIII \            158509\    0\       
+     [factor]        2\. Sí tiene trabajo             80204 (50.6%)        IIIIIIIIII             (100.0%)   (0.0%)   
+
+7    ingresos\       1\. Menos del sueldo mínimo\     28795 (48.3%)\       IIIIIIIII \            59644\     98865\   
+     [factor]        2\. Sueldo promedio\             21569 (36.2%)\       IIIIIII \              (37.6%)    (62.4%)  
+                     3\. Sueldo alto\                 6898 (11.6%)\        II \                                       
+                     4\. Sueldo muy alto              2382 ( 4.0%)                                                    
+----------------------------------------------------------------------------------------------------------------------</code></pre>
+</div>
+</div>
+<p>En esta segunda tabla, podemos ver más o menos la distribución de cada variable. En este caso ya podemos comenzar a analizar esta un poco más en profundidad. En un primer momento podemos visualizar la diferencia entre las personas pertenecientes a pueblos originarios y las que no. En cuanto a la educación, se puede ver en el gráfico una forma parecida a la de una curva normal, pero posteriormente ahondaré en ello. En cuanto a la gratuidad y los créditos, las personas que fueron (o pueden seguir siendo) estudiantes de educación superior en el año 2022, una proporción no menor representa aquellos estudiantes que estudian con gratuidad. Por último, respecto a los ingresos, la forma de la curva presenta asimetría, que se puede interpretar como que mayor cantidad de personas obtienen por su trabajo, en este caso, menos del sueldo mínimo en comparación con las personas que tienen sueldos muy abultados.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: “Plots”</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sjt.xtab</span>(CASEN<span class="sc">$</span>educ, CASEN<span class="sc">$</span>pueb_or,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.col.prc=</span><span class="cn">TRUE</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.summary=</span><span class="cn">FALSE</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">educ</td>
+<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">pueb_or</td>
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid;">Total</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">No pertenece a algún<br>
+pueblo originario</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Sí pertenece a algún<br>
+pueblo originario</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">No asístió</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2511</span><br>
+<span style="color:#339933;">1.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">524</span><br>
+<span style="color:#339933;">2.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">3035</span><br>
+<span style="color:#339933;">1.9&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Básica</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">31135</span><br>
+<span style="color:#339933;">22.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">5727</span><br>
+<span style="color:#339933;">27.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">36862</span><br>
+<span style="color:#339933;">23.4&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Media</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">59177</span><br>
+<span style="color:#339933;">43.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">9027</span><br>
+<span style="color:#339933;">43.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">68204</span><br>
+<span style="color:#339933;">43.2&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Superior</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">42076</span><br>
+<span style="color:#339933;">30.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">5225</span><br>
+<span style="color:#339933;">25.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">47301</span><br>
+<span style="color:#339933;">30&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Postgrados</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2207</span><br>
+<span style="color:#339933;">1.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">112</span><br>
+<span style="color:#339933;">0.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2319</span><br>
+<span style="color:#339933;">1.5&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">137106</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">20615</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">157721</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Si bien, las diferencias entre pertenecer y no a un pueblo originario respondiendo a su nivel educativo son muy diferente en cuanto a frecuencias, lo correcto sería sólo visualizar los porcentajes, ya que nos entregan, valga la redundancia, la proporción de personas de pueblos originarios o no respecto a su nivel educativo. Es visible que en proporción más personas no asistieron a ningún tipo de educación siendo de pueblos originarios que las que no pertenecen. La educación básica y media es muy similar. Ahora respecto a estudios superiores está lo interesante, las personas que pertenecen a pueblos originarios, si bien, logran alcanzar la educación superior, la proporción es menor, lo mismo con estudios de postgrados, es casi 1% más en las personas que no pertenecen a pueblos originarios. Muy al contrario de lo que uno puede creer, las personas de pueblos originarios, si logran en una proporción no menor, estudios superiores.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: “Plots”</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sjt.xtab</span>(CASEN<span class="sc">$</span>est_educ_sup, CASEN<span class="sc">$</span>pueb_or,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.col.prc=</span><span class="cn">TRUE</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.summary=</span><span class="cn">FALSE</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">est_educ_sup</td>
+<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">pueb_or</td>
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid;">Total</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">No pertenece a algún<br>
+pueblo originario</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Sí pertenece a algún<br>
+pueblo originario</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">No asístió</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">104364</span><br>
+<span style="color:#339933;">75.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">17221</span><br>
+<span style="color:#339933;">83.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">121585</span><br>
+<span style="color:#339933;">76.7&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">C.F.T.</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">3976</span><br>
+<span style="color:#339933;">2.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">579</span><br>
+<span style="color:#339933;">2.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">4555</span><br>
+<span style="color:#339933;">2.9&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">I.P.</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">9185</span><br>
+<span style="color:#339933;">6.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">1123</span><br>
+<span style="color:#339933;">5.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">10308</span><br>
+<span style="color:#339933;">6.5&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Universidad</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">19758</span><br>
+<span style="color:#339933;">14.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">1768</span><br>
+<span style="color:#339933;">8.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">21526</span><br>
+<span style="color:#339933;">13.6&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Establecimiento de<br>
+las Fuerzas Armadas</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">502</span><br>
+<span style="color:#339933;">0.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">33</span><br>
+<span style="color:#339933;">0.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">535</span><br>
+<span style="color:#339933;">0.3&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">137785</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">20724</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">158509</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Aquí se repite un poco la tendencia, las personas no pertenecientes logran alcanzar estudios superiores, independiente del establecimiento. Ahora bien, se ve que en general, son más las personas que no alcanzan niveles superiores de educación.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: “Plots”</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sjt.xtab</span>(CASEN<span class="sc">$</span>gratuidad, CASEN<span class="sc">$</span>pueb_or,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.col.prc=</span><span class="cn">TRUE</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.summary=</span><span class="cn">FALSE</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">gratuidad</td>
+<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">pueb_or</td>
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid;">Total</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">No pertenece a algún<br>
+pueblo originario</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Sí pertenece a algún<br>
+pueblo originario</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">No posee gratuidad</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">5523</span><br>
+<span style="color:#339933;">53.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">1168</span><br>
+<span style="color:#339933;">65.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">6691</span><br>
+<span style="color:#339933;">55.5&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Sí posee gratuidad</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">4754</span><br>
+<span style="color:#339933;">46.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">610</span><br>
+<span style="color:#339933;">34.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">5364</span><br>
+<span style="color:#339933;">44.5&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">10277</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1778</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">12055</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>En esta tabla, es visible la cantidad de personas que no poseen gratuidad, esto quiere decir que por alguna razón (que desconocemos), puede ser que las personas que sí pertenecen a algún pueblo originario, deban optar a algún crédito, eso lo visualizamos a continuación:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: “Plots”</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sjt.xtab</span>(CASEN<span class="sc">$</span>cred_univ, CASEN<span class="sc">$</span>pueb_or,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.col.prc=</span><span class="cn">TRUE</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.summary=</span><span class="cn">FALSE</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">cred_univ</td>
+<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">pueb_or</td>
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid;">Total</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">No pertenece a algún<br>
+pueblo originario</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Sí pertenece a algún<br>
+pueblo originario</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">No cuenta con<br>
+crédito</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">3645</span><br>
+<span style="color:#339933;">60&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">491</span><br>
+<span style="color:#339933;">61.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">4136</span><br>
+<span style="color:#339933;">60.2&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Crédito<br>
+universitario o<br>
+fondo solidario</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">346</span><br>
+<span style="color:#339933;">5.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">60</span><br>
+<span style="color:#339933;">7.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">406</span><br>
+<span style="color:#339933;">5.9&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Crédito con aval del<br>
+Estado</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">1238</span><br>
+<span style="color:#339933;">20.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">130</span><br>
+<span style="color:#339933;">16.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">1368</span><br>
+<span style="color:#339933;">19.9&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Crédito de<br>
+institución</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">115</span><br>
+<span style="color:#339933;">1.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">16</span><br>
+<span style="color:#339933;">2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">131</span><br>
+<span style="color:#339933;">1.9&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Otro crédito</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">732</span><br>
+<span style="color:#339933;">12&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">103</span><br>
+<span style="color:#339933;">12.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">835</span><br>
+<span style="color:#339933;">12.1&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">6076</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">800</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">6876</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>En este caso la distribución es bastante similar en cuanto a la pertenencia de pueblos originarios y si poseen o no un crédito de algún tipo. Es muy posible, que muchas personas pertenecientes a pueblos originarios puedan contar con una beca, pero en general muchas personas optan a créditos por ambos lados.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: “Plots”</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sjt.xtab</span>(CASEN<span class="sc">$</span>educ, CASEN<span class="sc">$</span>pueb_or,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.col.prc=</span><span class="cn">TRUE</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.summary=</span><span class="cn">FALSE</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">educ</td>
+<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">pueb_or</td>
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid;">Total</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">No pertenece a algún<br>
+pueblo originario</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Sí pertenece a algún<br>
+pueblo originario</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">No asístió</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2511</span><br>
+<span style="color:#339933;">1.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">524</span><br>
+<span style="color:#339933;">2.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">3035</span><br>
+<span style="color:#339933;">1.9&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Básica</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">31135</span><br>
+<span style="color:#339933;">22.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">5727</span><br>
+<span style="color:#339933;">27.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">36862</span><br>
+<span style="color:#339933;">23.4&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Media</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">59177</span><br>
+<span style="color:#339933;">43.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">9027</span><br>
+<span style="color:#339933;">43.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">68204</span><br>
+<span style="color:#339933;">43.2&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Superior</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">42076</span><br>
+<span style="color:#339933;">30.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">5225</span><br>
+<span style="color:#339933;">25.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">47301</span><br>
+<span style="color:#339933;">30&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Postgrados</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2207</span><br>
+<span style="color:#339933;">1.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">112</span><br>
+<span style="color:#339933;">0.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2319</span><br>
+<span style="color:#339933;">1.5&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">137106</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">20615</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">157721</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="gráficos" class="level5">
+<h5 class="anchored" data-anchor-id="gráficos">Gráficos</h5>
+<p>Ahora bien, pudimos ver más o menos la distribución de personas pertenecientes a pueblos originarios y no, con diversas variables. Lo que me propongo hacer de aquí en más, es demostrar con gráficos las dos variables que nos quedan por explorar.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: “Plots”</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sjt.xtab</span>(CASEN<span class="sc">$</span>trabajo, CASEN<span class="sc">$</span>pueb_or,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.col.prc=</span><span class="cn">TRUE</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.summary=</span><span class="cn">FALSE</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">trabajo</td>
+<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">pueb_or</td>
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid;">Total</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">No pertenece a algún<br>
+pueblo originario</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Sí pertenece a algún<br>
+pueblo originario</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">No tiene trabajo</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">67979</span><br>
+<span style="color:#339933;">49.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">10326</span><br>
+<span style="color:#339933;">49.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">78305</span><br>
+<span style="color:#339933;">49.4&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Sí tiene trabajo</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">69806</span><br>
+<span style="color:#339933;">50.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">10398</span><br>
+<span style="color:#339933;">50.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">80204</span><br>
+<span style="color:#339933;">50.6&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">137785</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">20724</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">158509</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: “Plots”</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>graph3 <span class="ot">&lt;-</span> CASEN <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trabajo, <span class="at">fill =</span> pueb_or)) <span class="sc">+</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Inserción en el mundo laboral"</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Cantidad"</span>) <span class="sc">+</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">"Pertenencia a pueblos originarios"</span>)<span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'No pertenece'</span>,<span class="st">"Sí pertenece"</span>))</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>graph3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Práctico-2_files/figure-html/gr-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>En este caso, construimos una tabla que refleja la cantidad de personas empleadas y desempleadas. Posteriormente construimos el gráfico que también lo representa. El análisis más allá, es evidente, las personas que tienen o no tienen trabajo son similares en proporción, tanto para pertenecientes a pueblos originarios como para los que no pertenecen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: “Plots”</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sjt.xtab</span>(CASEN<span class="sc">$</span>ingresos, CASEN<span class="sc">$</span>pueb_or,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.col.prc=</span><span class="cn">TRUE</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.summary=</span><span class="cn">FALSE</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">ingresos</td>
+<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">pueb_or</td>
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid;">Total</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">No pertenece a algún<br>
+pueblo originario</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Sí pertenece a algún<br>
+pueblo originario</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Menos del sueldo<br>
+mínimo</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">24813</span><br>
+<span style="color:#339933;">47.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">3982</span><br>
+<span style="color:#339933;">54.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">28795</span><br>
+<span style="color:#339933;">48.3&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Sueldo promedio</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">18910</span><br>
+<span style="color:#339933;">36.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2659</span><br>
+<span style="color:#339933;">36.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">21569</span><br>
+<span style="color:#339933;">36.2&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Sueldo alto</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">6310</span><br>
+<span style="color:#339933;">12.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">588</span><br>
+<span style="color:#339933;">8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">6898</span><br>
+<span style="color:#339933;">11.6&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Sueldo muy alto</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2271</span><br>
+<span style="color:#339933;">4.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">111</span><br>
+<span style="color:#339933;">1.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2382</span><br>
+<span style="color:#339933;">4&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">52304</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">7340</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">59644</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: “Plots”</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>graph3 <span class="ot">&lt;-</span> CASEN <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ingresos, <span class="at">fill =</span> pueb_or)) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Niveles de sueldo"</span>) <span class="sc">+</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Cantidad"</span>) <span class="sc">+</span> </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">"Pertenencia a los pueblos originarios"</span>)<span class="sc">+</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'No pertenece'</span>,<span class="st">'Sí pertenece'</span>))</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>graph3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Práctico-2_files/figure-html/gr-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Al comparar la tabla generada para los ingresos y el gráfico, podemos ver que en general hay una tendencia en que las personas reciban menos del sueldo mínimo, mientras que cada categoría que pasa la frecuencia de personas dentro de estas va disminuyendo. La comparación entre personas no pertenecientes y pertenecientes es en suma, muy similar, no hay grandes diferencias entre unas y otras, más allá de que hay muchas más personas que no perteneces que las que sí.</p>
+</section>
+<section id="conclusión" class="level5">
+<h5 class="anchored" data-anchor-id="conclusión">Conclusión</h5>
+<p>En líneas generales, lo que se ve con las tablas y gráficos es que la diferencia entre personas pertenecientes a pueblos originarios y las que no, no es muy heterogénea. En general, son bastante similares, claramente no en números pero sí en proporciones.</p>
+<p>Ahora bien, esto quiere decir que las políticas implementadas para las personas pertenecientes a pueblos originarios son útiles, el acceso a la educación está mucho más al alcance de las personas, desde la educación pre escolar, pasando por la básica, media y llegando a la superior (las personas que estudian postgrados son un número muy reducido), lo que habla muy bien de la nivelación de personas de pueblos originarios y no.</p>
+<p>Esta investigación se presentaba como hipótesis que la comparativa general iba a ser de que las personas pertenecientes a pueblos originarios eran mucho más perjudicadas, esto referido al acceso a la educación, a la inserción laboral y finalmente a los ingresos. Pero quedó demostrado que en general las variaciones son muy pequeñas y por supuesto no hay que dejar de observar el número de casos en cada categoría.</p>
+<p>Las limitaciones que vi en esta investigación son las siguientes: 1) la base de datos de la CASEN 2022 no pregunta por el establecimiento educacional en el que estudió la persona, por lo que no pude hacer uso de esa variable; y 2) la literatura empleada en la introducción puede que sea insuficiente para explicar el fenómeno.</p>
 
 </section>
 
